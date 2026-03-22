@@ -6,9 +6,9 @@ import TodoSummary from "./components/TodoSummary";
 
 function App() {
   const [todos, setTodos] = useState([
-    { id: 1, text: "Reactを学ぶ", isCompleted: true },
-    { id: 2, text: "買い物に行く", isCompleted: false },
-    { id: 3, text: "歯医者に行く", isCompleted: true },
+    { text: "Reactを学ぶ", isCompleted: true },
+    { text: "買い物に行く", isCompleted: false },
+    { text: "歯医者に行く", isCompleted: true },
   ]);
 
   return (
