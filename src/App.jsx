@@ -1,11 +1,11 @@
 import Title from "./Title";
-import InputArea from "./components/InputArea";
+import TodoContainer from "./components/TodoContainer";
 
 function App() {
   return (
     <div id="root">
       <Title text="ToDo List" />
-      <InputArea />
+      <TodoContainer />
     </div>
   );
 }

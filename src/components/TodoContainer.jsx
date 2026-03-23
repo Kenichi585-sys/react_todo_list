@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TodoItem from "./TodoItem";
 
 export default function InputArea() {
   const [inputText, setInputText] = useState("");
@@ -6,10 +7,12 @@ export default function InputArea() {
   const [editingIndex, setEditingIndex] = useState(null);
   const [editText, setEditText] = useState("");
 
-  const func1 = (event) => {
+  // 入力欄の文字を状態に反映
+  const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
 
+  // 新規Todoの保存
   const handleSave = () => {
     if (inputText.trim() === "") return alert("文字を入力して下さい");
 
@@ -21,7 +24,7 @@ export default function InputArea() {
     setTodos([...todos, newTodo]);
     setInputText("");
   };
-
+  // Todo削除
   const deleteTodo = (index) => {
     const result = window.confirm("本当に削除してもよろしいですか？");
 
@@ -31,6 +34,7 @@ export default function InputArea() {
     }
   };
 
+  // Todo更新
   const updateTodo = () => {
     if (editText.trim() === "") return alert("文字を入力して下さい");
 
@@ -49,6 +53,7 @@ export default function InputArea() {
     setEditText("");
   };
 
+  // 完了、未完了の切り替え
   const toggleTodo = (index) => {
     const newTodos = todos.map((todo, i) => {
       if (i === index) {
@@ -62,54 +67,37 @@ export default function InputArea() {
     setTodos(newTodos);
   };
 
+  // 完了の計算
   const completedCount = todos.filter(
     (todo) => todo.isCompleted === true,
   ).length;
 
+  // 未完了の計算
   const uncompletedCount = todos.filter(
     (todo) => todo.isCompleted === false,
   ).length;
 
   return (
     <div>
-      <input type="text" onChange={func1} value={inputText} />
+      <input type="text" onChange={handleInputChange} value={inputText} />
       <button onClick={handleSave}>保存</button>
       <p>全てのタスク：{todos.length}</p>
       <p>完了済み：{completedCount}</p>
       <p>未完了：{uncompletedCount}</p>
       <ul>
         {todos.map((todo, index) => (
-          <li key={index}>
-            <input
-              type="checkbox"
-              checked={todo.isCompleted}
-              onChange={() => toggleTodo(index)}
-            />
-            {editingIndex === index ? (
-              <input
-                type="text"
-                value={editText}
-                onChange={(e) => setEditText(e.target.value)}
-              />
-            ) : (
-              <span>{todo.text}</span>
-            )}
-
-            {editingIndex === index ? (
-              <button onClick={updateTodo}>保存</button>
-            ) : (
-              <button
-                onClick={() => {
-                  setEditingIndex(index);
-                  setEditText(todo.text);
-                }}
-              >
-                編集
-              </button>
-            )}
-
-            <button onClick={() => deleteTodo(index)}>削除</button>
-          </li>
+          <TodoItem
+            key={index}
+            todo={todo}
+            index={index}
+            editingIndex={editingIndex}
+            setEditingIndex={setEditingIndex}
+            editText={editText}
+            setEditText={setEditText}
+            updateTodo={updateTodo}
+            deleteTodo={deleteTodo}
+            toggleTodo={toggleTodo}
+          />
         ))}
       </ul>
     </div>
