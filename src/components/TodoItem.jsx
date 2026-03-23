@@ -11,7 +11,7 @@ export default function TodoItem({
   toggleTodo,
 }) {
   return (
-    <li>
+    <li className="todo-item">
       {/* 完了、未完了のチェック */}
       <input
         type="checkbox"
@@ -19,36 +19,43 @@ export default function TodoItem({
         onChange={() => toggleTodo(todo.id)}
       />
 
-      {/* Todo部分の表示：　編集モードか通常表示か */}
-      {editingId === todo.id ? (
-        <input
-          type="text"
-          value={editText}
-          onChange={(e) => setEditText(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              updateTodo();
-            }
-          }}
-        />
-      ) : (
-        <span>{todo.text}</span>
-      )}
-      {/* ボタンの表示：　編集ボタンか保存ボタンか */}
-      {editingId === todo.id ? (
-        <button onClick={updateTodo}>保存</button>
-      ) : (
-        <button
-          onClick={() => {
-            setEditingId(todo.id);
-            setEditText(todo.text);
-          }}
-        >
-          編集
-        </button>
-      )}
+      <div className="todo-content">
+        {/* Todo部分の表示：　編集モードか通常表示か */}
+        {editingId === todo.id ? (
+          <input
+            type="text"
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.nativeEvent.isComposing) return;
 
-      <button onClick={() => deleteTodo(todo.id)}>削除</button>
+              if (e.key === "Enter") {
+                updateTodo();
+              }
+            }}
+          />
+        ) : (
+          <span>{todo.text}</span>
+        )}
+      </div>
+
+      <div>
+        {/* ボタンの表示：　編集ボタンか保存ボタンか */}
+        {editingId === todo.id ? (
+          <button onClick={updateTodo}>保存</button>
+        ) : (
+          <button
+            onClick={() => {
+              setEditingId(todo.id);
+              setEditText(todo.text);
+            }}
+          >
+            編集
+          </button>
+        )}
+
+        <button onClick={() => deleteTodo(todo.id)}>削除</button>
+      </div>
     </li>
   );
 }

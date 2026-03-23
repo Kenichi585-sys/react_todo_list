@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useDebugValue, useEffect, useState } from "react";
 import TodoItem from "./TodoItem";
 
 export default function InputArea() {
   const [inputText, setInputText] = useState("");
-  const [todos, setTodos] = useState([]);
+
+  const [todos, setTodos] = useState(() => {
+    const saveTodos = localStorage.getItem("my_todo");
+    return saveTodos ? JSON.parse(saveTodos) : [];
+  });
+
   const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("my_todo", JSON.stringify(todos));
+  }, [todos]);
 
   // 入力欄の文字を状態に反映
   const handleInputChange = (event) => {
@@ -84,6 +93,8 @@ export default function InputArea() {
         onChange={handleInputChange}
         value={inputText}
         onKeyDown={(e) => {
+          if (e.nativeEvent.isComposing) return;
+
           if (e.key === "Enter") {
             handleSave();
           }
