@@ -2,9 +2,8 @@ import React from "react";
 
 export default function TodoItem({
   todo,
-  index,
-  editingIndex,
-  setEditingIndex,
+  editingId,
+  setEditingId,
   editText,
   setEditText,
   updateTodo,
@@ -17,11 +16,11 @@ export default function TodoItem({
       <input
         type="checkbox"
         checked={todo.isCompleted}
-        onChange={() => toggleTodo(index)}
+        onChange={() => toggleTodo(todo.id)}
       />
 
-      {/* Todo部分が編集モードか通常表示か */}
-      {editingIndex === index ? (
+      {/* Todo部分の表示：　編集モードか通常表示か */}
+      {editingId === todo.id ? (
         <input
           type="text"
           value={editText}
@@ -35,13 +34,13 @@ export default function TodoItem({
       ) : (
         <span>{todo.text}</span>
       )}
-      {/* ボタンの表示：編集ボタンか保存ボタンか */}
-      {editingIndex === index ? (
+      {/* ボタンの表示：　編集ボタンか保存ボタンか */}
+      {editingId === todo.id ? (
         <button onClick={updateTodo}>保存</button>
       ) : (
         <button
           onClick={() => {
-            setEditingIndex(index);
+            setEditingId(todo.id);
             setEditText(todo.text);
           }}
         >
@@ -49,7 +48,7 @@ export default function TodoItem({
         </button>
       )}
 
-      <button onClick={() => deleteTodo(index)}>削除</button>
+      <button onClick={() => deleteTodo(todo.id)}>削除</button>
     </li>
   );
 }

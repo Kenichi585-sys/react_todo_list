@@ -4,7 +4,7 @@ import TodoItem from "./TodoItem";
 export default function InputArea() {
   const [inputText, setInputText] = useState("");
   const [todos, setTodos] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(null);
+  const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState("");
 
   // 入力欄の文字を状態に反映
@@ -17,6 +17,7 @@ export default function InputArea() {
     if (inputText.trim() === "") return alert("文字を入力して下さい");
 
     const newTodo = {
+      id: crypto.randomUUID(),
       text: inputText,
       isCompleted: false,
     };
@@ -25,11 +26,10 @@ export default function InputArea() {
     setInputText("");
   };
   // Todo削除
-  const deleteTodo = (index) => {
+  const deleteTodo = (id) => {
     const result = window.confirm("本当に削除してもよろしいですか？");
-
     if (result) {
-      const newTodos = todos.filter((_, i) => i !== index);
+      const newTodos = todos.filter((todo) => todo.id !== id);
       setTodos(newTodos);
     }
   };
@@ -38,8 +38,8 @@ export default function InputArea() {
   const updateTodo = () => {
     if (editText.trim() === "") return alert("文字を入力して下さい");
 
-    const newTodos = todos.map((todo, i) => {
-      if (i === editingIndex) {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === editingId) {
         return {
           ...todo,
           text: editText,
@@ -49,14 +49,14 @@ export default function InputArea() {
     });
 
     setTodos(newTodos);
-    setEditingIndex(null);
+    setEditingId(null);
     setEditText("");
   };
 
   // 完了、未完了の切り替え
-  const toggleTodo = (index) => {
-    const newTodos = todos.map((todo, i) => {
-      if (i === index) {
+  const toggleTodo = (id) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
         return {
           ...todo,
           isCompleted: !todo.isCompleted,
@@ -94,13 +94,12 @@ export default function InputArea() {
       <p>完了済み：{completedCount}</p>
       <p>未完了：{uncompletedCount}</p>
       <ul>
-        {todos.map((todo, index) => (
+        {todos.map((todo) => (
           <TodoItem
-            key={index}
+            key={todo.id}
             todo={todo}
-            index={index}
-            editingIndex={editingIndex}
-            setEditingIndex={setEditingIndex}
+            editingId={editingId}
+            setEditingId={setEditingId}
             editText={editText}
             setEditText={setEditText}
             updateTodo={updateTodo}
