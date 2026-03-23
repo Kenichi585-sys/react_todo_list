@@ -26,11 +26,16 @@ export default function TodoItem({
           type="text"
           value={editText}
           onChange={(e) => setEditText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              updateTodo();
+            }
+          }}
         />
       ) : (
         <span>{todo.text}</span>
       )}
-      {/* 編集ボタンか保存ボタンか */}
+      {/* ボタンの表示：編集ボタンか保存ボタンか */}
       {editingIndex === index ? (
         <button onClick={updateTodo}>保存</button>
       ) : (

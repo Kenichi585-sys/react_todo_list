@@ -79,7 +79,16 @@ export default function InputArea() {
 
   return (
     <div>
-      <input type="text" onChange={handleInputChange} value={inputText} />
+      <input
+        type="text"
+        onChange={handleInputChange}
+        value={inputText}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSave();
+          }
+        }}
+      />
       <button onClick={handleSave}>保存</button>
       <p>全てのタスク：{todos.length}</p>
       <p>完了済み：{completedCount}</p>
