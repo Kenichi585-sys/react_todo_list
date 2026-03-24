@@ -17,6 +17,7 @@ export default function TodoItem({
         type="checkbox"
         checked={todo.isCompleted}
         onChange={() => toggleTodo(todo.id)}
+        className="todo-checkbox"
       />
 
       <div className="todo-content">
@@ -25,26 +26,30 @@ export default function TodoItem({
           <input
             type="text"
             value={editText}
+            className="edit-input"
+            autoFocus
             onChange={(e) => setEditText(e.target.value)}
             onKeyDown={(e) => {
               if (e.nativeEvent.isComposing) return;
-
               if (e.key === "Enter") {
                 updateTodo();
               }
             }}
           />
         ) : (
-          <span>{todo.text}</span>
+          <span className="todo-text">{todo.text}</span>
         )}
       </div>
 
-      <div>
-        {/* ボタンの表示：　編集ボタンか保存ボタンか */}
+      {/* ボタンの表示：　編集ボタンか保存ボタンか */}
+      <div className="todo-buttons">
         {editingId === todo.id ? (
-          <button onClick={updateTodo}>保存</button>
+          <button className="btn btn-save" onClick={updateTodo}>
+            保存
+          </button>
         ) : (
           <button
+            className="btn btn-edit"
             onClick={() => {
               setEditingId(todo.id);
               setEditText(todo.text);
@@ -54,7 +59,9 @@ export default function TodoItem({
           </button>
         )}
 
-        <button onClick={() => deleteTodo(todo.id)}>削除</button>
+        <button className="btn btn-delete" onClick={() => deleteTodo(todo.id)}>
+          削除
+        </button>
       </div>
     </li>
   );

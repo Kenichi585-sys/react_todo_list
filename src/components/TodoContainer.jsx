@@ -87,23 +87,31 @@ export default function InputArea() {
   ).length;
 
   return (
-    <div>
-      <input
-        type="text"
-        onChange={handleInputChange}
-        value={inputText}
-        onKeyDown={(e) => {
-          if (e.nativeEvent.isComposing) return;
+    <div className="todo-app">
+      <h1>React ToDo List</h1>
 
-          if (e.key === "Enter") {
-            handleSave();
-          }
-        }}
-      />
-      <button onClick={handleSave}>保存</button>
-      <p>全てのタスク：{todos.length}</p>
-      <p>完了済み：{completedCount}</p>
-      <p>未完了：{uncompletedCount}</p>
+      <div className="input-group">
+        <input
+          type="text"
+          onChange={handleInputChange}
+          value={inputText}
+          onKeyDown={(e) => {
+            if (e.nativeEvent.isComposing) return;
+
+            if (e.key === "Enter") {
+              handleSave();
+            }
+          }}
+        />
+        <button onClick={handleSave}>保存</button>
+      </div>
+
+      <div className="todo-stats">
+        <p>全てのタスク：{todos.length}</p>
+        <p>完了済み：{completedCount}</p>
+        <p>未完了：{uncompletedCount}</p>
+      </div>
+
       <ul>
         {todos.map((todo) => (
           <TodoItem
