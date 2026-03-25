@@ -79,28 +79,28 @@ ul {
 
 .todo-content {
   flex: 1;
-  min-width: 0; /* これがボタンを右に保つ魔法です */
+  min-width: 0;
 }
 
 .todo-text {
   display: block;
-  word-break: break-all; /* 長い文字を改行させる */
+  word-break: break-all;
   font-size: 16px;
 }
 
-/* 編集時の入力欄を横いっぱいに */
 .edit-input {
   width: 100%;
   padding: 8px;
-  border: 2px solid #2ecc71; /* 編集時は緑色に */
+  border: 2px solid #e0e0e0;
   border-radius: 4px;
+  outline: none;
 }
 
 /* --- 5. ボタン (色分けと隙間) --- */
 .todo-buttons {
   display: flex;
-  gap: 12px; /* ★編集と削除の間の隙間！ */
-  flex-shrink: 0; /* ボタンが潰れないように死守 */
+  gap: 12px;
+  flex-shrink: 0;
 }
 
 .btn {
@@ -113,13 +113,13 @@ ul {
 }
 
 .btn-edit {
-  background-color: #4a90e2;
+  background-color: #2ecc71;
   color: white;
 }
 .btn-save {
-  background-color: #2ecc71;
+  background-color: #3498db;
   color: white;
-} /* 保存を緑に変更 */
+}
 .btn-delete {
   background-color: #e94e4e;
   color: white;

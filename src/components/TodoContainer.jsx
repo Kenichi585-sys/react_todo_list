@@ -1,4 +1,4 @@
-import React, { useDebugValue, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import TodoItem from "./TodoItem";
 
 export default function InputArea() {
@@ -34,6 +34,7 @@ export default function InputArea() {
     setTodos([...todos, newTodo]);
     setInputText("");
   };
+
   // Todo削除
   const deleteTodo = (id) => {
     const result = window.confirm("本当に削除してもよろしいですか？");
@@ -103,7 +104,9 @@ export default function InputArea() {
             }
           }}
         />
-        <button onClick={handleSave}>保存</button>
+        <button className="btn-add" onClick={handleSave}>
+          保存
+        </button>
       </div>
 
       <div className="todo-stats">
