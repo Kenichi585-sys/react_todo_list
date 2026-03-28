@@ -23,11 +23,12 @@ export default function InputArea() {
 
   // 新規Todoの保存
   const handleSave = () => {
-    if (inputText.trim() === "") return alert("文字を入力して下さい");
+    const trimmedText = inputText.trim();
+    if (trimmedText === "") return alert("文字を入力して下さい");
 
     const newTodo = {
       id: crypto.randomUUID(),
-      text: inputText,
+      text: trimmedText,
       isCompleted: false,
     };
 
@@ -46,13 +47,14 @@ export default function InputArea() {
 
   // Todo更新
   const updateTodo = () => {
-    if (editText.trim() === "") return alert("文字を入力して下さい");
+    const trimmedText = editText.trim();
+    if (trimmedText === "") return alert("文字を入力して下さい");
 
     const newTodos = todos.map((todo) => {
       if (todo.id === editingId) {
         return {
           ...todo,
-          text: editText,
+          text: trimmedText,
         };
       }
       return todo;
@@ -78,9 +80,7 @@ export default function InputArea() {
   };
 
   // 完了の計算
-  const completedCount = todos.filter(
-    (todo) => todo.isCompleted === true,
-  ).length;
+  const completedCount = todos.filter((todo) => todo.isCompleted).length;
 
   // 未完了の計算
   const uncompletedCount = todos.filter(
