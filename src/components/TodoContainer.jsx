@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TodoItem from "./TodoItem";
 
-export default function InputArea() {
+export default function TodoContainer() {
   const [inputText, setInputText] = useState("");
 
   const [todos, setTodos] = useState(() => {
