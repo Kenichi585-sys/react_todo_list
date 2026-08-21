@@ -102,18 +102,3 @@ npm install
 | `npm run build` | 本番用ファイル（`dist/`）を生成する          |
 | `npm run lint`  | ESLint によるコードチェックを実行する        |
 
-## 今後の改善案
-
-### テスト追加
-
-[Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) を使い、以下のテストを追加する予定です。
-
-| テスト対象           | 内容                                                                   |
-| -------------------- | ---------------------------------------------------------------------- |
-| タスク追加           | 入力して保存 → リストに表示される                                      |
-| 空入力バリデーション | 空文字・空白のみでは追加されない                                       |
-| 完了切替             | チェックボックスで `isCompleted` が切り替わる                          |
-| タスク編集           | 編集ボタン → 入力欄表示 → 保存でテキスト更新                           |
-| タスク削除           | 削除ボタン → confirm 後にリストから消える                              |
-| 件数表示             | 全件・完了・未完了の数字が正しい                                       |
-| localStorage 永続化  | 追加後に `localStorage` に JSON が保存される（`localStorage` を mock） |
